@@ -1,0 +1,17 @@
+<%
+response.addHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0");
+response.addHeader("Pragma", "no-cache");
+
+
+	var desc = "";
+	var caramel = require('caramel');
+	var verb = request.getMethod();
+
+	caramel.render({
+		'title':{text:'Home'},
+		'header':{text:'Home'},
+		'sidenavi':{},
+		'main':{text:desc},
+'footer':{}
+	});
+%>

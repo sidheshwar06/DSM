@@ -1,0 +1,44 @@
+<%
+response.addHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0");
+response.addHeader("Pragma", "no-cache");
+var caramel;
+var dbt = require('modules/dbcon.js');
+var log = new Log();
+
+var verb = request.getMethod();
+if(verb == 'GET'){
+caramel = require('caramel');
+caramel.render({
+	'title':{text:'New User'},
+	
+	'sidenavi':{},
+	'registration':{}
+});
+}else if(verb == 'POST'){
+	var frst_name = request.getParameter('firstname');
+	var mddl_name = request.getParameter('middlename');
+var lst_name = request.getParameter('lastname');
+	var gender = request.getParameter('gender');
+	var phon = request.getParameter('mobile');
+	var mail = request.getParameter('email');
+
+	var db = new Database("form_registration");
+	try{
+
+		var data ="insert into register(first_name,middle_name,last_name,gender,phone,email) values('"+frst_name+"','"+mddl_name+"', '"+lst_name+"', '"+gender+"', '"+phon+"',  '"+mail+"');"
+
+
+		log.info("Data "+data);
+		db.query(data);
+		log.info("User Successfully Added");
+	} catch(e)
+	    {
+			print(e.toString());
+			log.error("Error Occured while inserting new user details");
+	    } finally
+		    {
+			    db.close()
+		    }
+	response.sendRedirect("index.jag");
+}
+%>

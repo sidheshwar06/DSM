@@ -1,0 +1,5 @@
+<%
+var db = new Database("form_registration");
+var res = db.query("Select * from createuser");
+
+%>
